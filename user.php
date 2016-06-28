@@ -83,7 +83,12 @@ expected output if get(USERID) set 1<br>
 <td align="center">-My Bio-</td>
 </tr>
 </table>
+<br><br><br><br>
+<hr><hr>
 
+if no user
+
+<br><br><b>No User</b>
 
 </body>
 </html>
