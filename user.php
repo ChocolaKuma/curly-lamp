@@ -5,19 +5,20 @@
 <meta charset="utf-8">
 
 <?PHP
-
 #USERID will be set Via cookie or GET
+$num = "";
+$username = "";
+$password = "";
+$avitar = "";
+$DateJoined = "";
+$UserBio = "";
 
 if (isset($_GET['USERID'])){$USERID = $_GET['USERID'];};
-
 if (!isset($_GET['USERID'])){$USERID = 1;}; #Take out before release
 
-
 $dbqur = "SELECT * FROM `user` WHERE num = ".$USERID;
-$sqlqur = mysqli_query($dbconnect,$dbqur);
 
-
-while($row = mysqli_fetch_array($sqlqur)){
+if($row = mysqli_fetch_array($sqlqur)){
 	
 	$num = $row["num"];
 	$username = $row["username"];
@@ -25,13 +26,18 @@ while($row = mysqli_fetch_array($sqlqur)){
 	$avitar = $row["aviloc"];
 	$DateJoined = $row["timestamp"];
 	$UserBio = $row["Bio"];
-	
 	};
+
+
+
 
 ?>
 <title><?php echo $username ; ?></title>
 </head>
 <body>
+
+<a href="newuser.php">newuser.php</a>
+
 <table align="center" border="1">
 <tr align="center">
 <td align="center"> Id Number (num)</td>
@@ -47,7 +53,7 @@ while($row = mysqli_fetch_array($sqlqur)){
 <td align="center"><?php echo $username; ?></td>
 <td align="center"><?php echo $password; ?></td>
 <td align="center"><?php echo $avitar; ?></td>
-<td align="center"><img src="<?php echo $avitar; ?>"></td>
+<td align="center"><img src="<?php echo $avitar; ?>" width="100" height="80"></td>
 <td align="center"><?php echo $DateJoined; ?></td>
 <td align="center"><?php echo $UserBio; ?></td>
 </tr>
@@ -55,40 +61,43 @@ while($row = mysqli_fetch_array($sqlqur)){
 
 <br><br><br><br>
 <hr><hr>
-
-<br><br>
-database skima: <br><br>num|username|pass|aviloc|timestamp|Bio<br>
-1|john|PASS|http://puu.sh/nhxtf/7b20aec200.png|2016-06-28|-My Bio-
-3|jess|pass|NULL|NULL|2016-06-28|NULL	
-
-<br><br><br><br>
-expected output if get(USERID) set 1<br>
 <table align="center" border="1">
 <tr align="center">
 <td align="center"> Id Number (num)</td>
 <td align="center"> username</td>
 <td align="center"> password (pass)</td>
 <td align="center"> aviloc (text)</td>
-<td align="center"> aviloc (IMG)</td>
 <td align="center"> Date Joined</td>
 <td align="center"> Bio</td>
-</tr>
-<tr align="center">
-<td align="center">1</td>
-<td align="center">John</td>
-<td align="center">PASS</td>
-<td align="center">http://puu.sh/nhxtf/7b20aec200.png</td>
-<td align="center"><img src="http://puu.sh/nhxtf/7b20aec200.png"></td>
-<td align="center">2016-06-28</td>
-<td align="center">-My Bio-</td>
-</tr>
-</table>
-<br><br><br><br>
+</tr><?PHP
+$sqlQ = "SELECT * FROM `user`";
+$data = mysqli_query($dbconnect,$sqlQ);
+while($record = mysqli_fetch_array($data))
+{
+echo "<tr>";
+echo "<td>";
+echo $record['num'];
+echo "</td>";
+echo "<td>";
+echo $record['username'];
+echo "</td>";
+echo "<td>";
+echo $record['pass'];
+echo "</td>";
+echo "<td>";
+echo $record['aviloc'];
+echo "</td>";
+echo "<td>";
+echo $record['timestamp'];
+echo "</td>";
+echo "<td>";
+echo $record['Bio'];
+echo "</td>";
+echo "</tr>";}
+?>
 <hr><hr>
+<br><br><Br>
 
-if no user
-
-<br><br><b>No User</b>
 
 </body>
 </html>
